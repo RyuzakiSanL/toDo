@@ -26,8 +26,17 @@ function del(id){
 function tachar(id){
 	for(item of listArray){
 		if (item.id == id) {
-			input = item.childNodes[0];
-			input.setAttribute("style","text-decoration: line-through;")
+			input = item.childNodes[1];
+			if (input.getAttribute("tachado") == "false" && input.value != "") {
+				input.setAttribute("style","text-decoration: line-through;");
+				input.setAttribute("tachado","true");
+			}
+			else{
+				input.setAttribute("style","text-decoration: none;");
+				input.setAttribute("tachado","false");
+
+			}
+			
 		}
 	}
 }
@@ -41,11 +50,12 @@ function add(){
 	item = document.createElement("li"); //crea el LI
 	texto = document.createElement("input");// crea el P
 	btnDel = document.createElement("button");//crea el boton de eliminar
-	btnDid = document.createElement("button");
+	btnDid = document.createElement("input");
 
+	item.appendChild(btnDid);//agrego el boton de completado al li
 	item.appendChild(texto); //agrego el p a li
 	item.appendChild(btnDel);//agrego el boton de eliminar al li
-	item.appendChild(btnDid);//agrego el boton de completado al li
+	
 	listElement.appendChild(item);//agrego el item a la UL
 	listArray.push(item);//agrego el elemento item a un array
 
@@ -56,6 +66,7 @@ function add(){
 
 
 	texto.setAttribute("placeholder","Escriba aquí");
+	texto.setAttribute("tachado","false");
 	texto.setAttribute("style","width: 60%;");
 	texto.setAttribute("style","display: inline-block;");
 
@@ -63,7 +74,10 @@ function add(){
 
 
 	btnDid.innerHTML = "Tachar";
+	btnDid.setAttribute("type","checkbox");
 	btnDid.setAttribute("onclick",`tachar("${item.id}")`);
+	
+	
 	
 	
 
