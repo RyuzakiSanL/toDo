@@ -52,20 +52,22 @@ function tachar(id){
 				input.setAttribute("style","text-decoration: line-through;");
 				item.setAttribute("tachado","true");
 
-
-
 				cont = listArray.indexOf(item);
 				element = listArray[cont]; //agarra el item actual
-				while(true){
-					 
-					cont ++;
+				
+				if (element.getAttribute("id") != `item-${listArray.length - 1}`) { // si no es el ultimo elemento, checkea por sub
+					while(true){ 
+
+						cont ++;
+						console.log(cont);
 					subElement = listArray[cont]; //agarra el item siguiente
 					if (subElement.getAttribute("sub") == "true" && element.getAttribute("sub") == "false") { //si no esta indentado y sus hijos si, los tacha
 						subInput = subElement.childNodes[2];
 						subChecked = subElement.childNodes[1];
 						subInput.setAttribute("style","text-decoration: line-through;");
 						subElement.setAttribute("tachado","true");
-						subChecked.setAttribute("checked","true");
+						subChecked.checked = true;
+						
 
 						if (cont == listArray.length - 1){ //si llego al final del array, sale del loop
 							break;
@@ -80,17 +82,19 @@ function tachar(id){
 					
 				}
 			}
-			else{
-				input.setAttribute("style","text-decoration: none;");
-				item.setAttribute("tachado","false");
 
-
-
-
-			}
-			
 		}
+		else{
+			input.setAttribute("style","text-decoration: none;");
+			item.setAttribute("tachado","false");
+
+
+
+
+		}
+
 	}
+}
 }
 
 
